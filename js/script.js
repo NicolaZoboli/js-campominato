@@ -6,6 +6,26 @@
 // La partita termina quando il giocatore inserisce un numero “vietato” o raggiunge il numero massimo possibile di numeri consentiti.
 // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
 
+// chiedo all'utente di scegliere la difficoltà
+var difficoltaSelezionata = 60;
+var selezione = false;
+
+while (selezione == false) {
+  var difficolta = parseInt(prompt("Scegli la difficoltà : 0 (impossibile), 1 (altamente improbabile) o 2 (un filo meno improbabile)"));
+  if (difficolta != 0 && difficolta != 1 && difficolta != 2) {
+    selezione = false;
+  } else if (difficolta == 0) {
+    selezione = true;
+    difficoltaSelezionata = 100;
+  } else if (difficolta == 1) {
+    selezione = true;
+    difficoltaSelezionata = 80;
+  } else if (difficolta == 2) {
+    selezione = true;
+    difficoltaSelezionata = 60;
+  }
+}
+
 //creo l'array dei numeri generati dal computer
 var arrayBombe = [];
 var maxBombe = 16;
@@ -18,7 +38,7 @@ var arrayUtente = [];
 // li inserisco nell'arrayBombe con push
 while (arrayBombe.length < maxBombe) {
 
-  var bomba = getRandom(1, 100);
+  var bomba = getRandom(1, difficoltaSelezionata);
   if (inArray(arrayBombe, bomba) != true) {
     arrayBombe.push(bomba);
   }
@@ -30,7 +50,7 @@ console.log("Array Bombe:", arrayBombe);
 // L’utente non può inserire più volte lo stesso numero.
 
 var arrayUtente = [];
-var maxTentativi = 84;
+var maxTentativi = difficoltaSelezionata - 16;
 var punti = 0;
 var i = 0;
 
